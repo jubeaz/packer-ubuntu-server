@@ -1,4 +1,4 @@
-VARFILE = subuntu.pkrvars.hcl
+VARFILE = subuntu-qemu.pkrvars.hcl
 
 init:
 	packer init .

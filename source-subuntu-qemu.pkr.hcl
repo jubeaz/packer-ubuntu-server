@@ -26,12 +26,23 @@ source "qemu" "subuntu" {
   format           = "qcow2"
   headless         = "${var.headless}"
   http_content     = {
-    "/user-data" = templatefile(
-                     "${path.root}/srv/user-data.pkrtpl", 
+    "/cloud/cloud.cfg" = templatefile(
+                     "${path.root}/srv/cloud/cloud.cfg.pkrtpl",
                      {
-                       locale = "${var.locale}",        
-                       keymap = "${var.keymap}",        
-                       hostname = "${var.hostname}",        
+                       ansible_login = "${var.ansible_login}"
+                       ansible_key = "${var.ansible_key}"
+                       ufw_allow_ssh_ip = "${var.ufw_allow_ssh_ip}"
+                       ntp_pools = "${var.ntp_pools}"
+                       locale = "${var.locale}"
+                     }
+                   )
+
+    "/user-data" = templatefile(
+                     "${path.root}/srv/user-data.pkrtpl",
+                     {
+                       locale = "${var.locale}",
+                       keymap = "${var.keymap}",
+                       hostname = "${var.hostname}",
                        packer_passwd = "${var.packer_password}"
                      }
                    )
@@ -49,6 +60,6 @@ source "qemu" "subuntu" {
   ssh_timeout      = "${var.ssh_timeout}"
   ssh_username     = "packer"
   vm_name          = "${local.vm_name}.qcow2"
-  output_directory = "${var.qemu_out_dir}/packer/subuntu"
+  output_directory = "${var.qemu_out_dir}/packer/qemu/${local.vm_name}"
 }
 

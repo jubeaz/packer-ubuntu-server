@@ -1,0 +1,14 @@
+packer_password     = "packer"
+ansible_login       = "ansible"
+ansible_key         = ""
+template_name       = "mytemplate"
+ufw_allow_ssh_ip    = "10.8.20/24"
+ntp_pools           = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org, 2.fr.pool.ntp.org, 3.fr.pool.ntp.org"
+locale              = "en_US.UTF-8"
+
+cpu                 = "4"
+ram                 = "4096"
+disk_size           = "20480"
+headless            = "false"
+
+qemu_out_dir        = "/var/lib/libvirt/isos"

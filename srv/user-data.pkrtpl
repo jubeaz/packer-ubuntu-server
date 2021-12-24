@@ -1,6 +1,7 @@
 #cloud-config
 autoinstall:
   version: 1
+  update: true
   early-commands:
     - systemctl stop ssh
   locale: ${locale}
@@ -10,14 +11,11 @@ autoinstall:
     network:
       version: 2
       ethernets:
-        ens3:
+        eth0:
           dhcp4: true
   storage:
     layout:
       name: lvm
-#  storage:
-#    layout:
-#      name: lvm
   identity:
     hostname: ${hostname}
     username: packer
@@ -33,3 +31,5 @@ autoinstall:
     - sed -i 's/GRUB_CMDLINE_LINUX="/& net.ifnames=0 biosdevname=0/' /target/etc/default/grub
     - curtin in-target --target=/target -- /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
     - sed -i 's/ens3/eth0/' /target/etc/netplan/00-installer-config.yaml
+    - curtin in-target --target=/target -- apt-get update
+    - curtin in-target --target=/target -- apt-get upgrade --yes
