@@ -68,6 +68,12 @@ cloud_init_modules:
 bootcmd:
    - rm /etc/resolv.conf
    - ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+   - sed -i 's/#PubkeyAuthentication/PubkeyAuthentication/' /etc/ssh/sshd_config
+   - sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+   - sed -i 's/#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config
+   - sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+   - sed -i 's/#AllowAgentForwarding/AllowAgentForwarding/' /etc/ssh/sshd_config
+   - sed -i 's/AllowAgentForwarding no/AllowAgentForwarding yes/' /etc/ssh/sshd_config
    - echo "y" | ufw enable
    - ufw allow from ${ufw_allow_ssh_ip} to any port 22
    - [ userdel, --remove, packer ]

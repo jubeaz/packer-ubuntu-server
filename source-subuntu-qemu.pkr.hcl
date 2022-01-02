@@ -60,6 +60,6 @@ source "qemu" "subuntu" {
   ssh_timeout      = "${var.ssh_timeout}"
   ssh_username     = "packer"
   vm_name          = "${local.vm_name}.qcow2"
-  output_directory = "${var.qemu_out_dir}/packer/qemu/${local.vm_name}"
+  output_directory = "${var.qemu_out_dir}/${local.vm_name}"
 }
 
